@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 # calories each elf is carrying (input)
 # each inventory is seperated by a new line
