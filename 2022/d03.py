@@ -18,18 +18,19 @@ def get_priority(item):
 
 # Part 1
 
-# Find duplicate item
+# Find duplicate items between compartments
 total_duplicate = []
 for line in input:
     length = len(line) // 2
     rucksack = [line[:length], line[length:]]
 
     duplicate = []
-    for item_a in rucksack[0]:
-        for item_b in rucksack[1]:
-            if item_a == item_b and get_priority(item_a) not in duplicate:
-                duplicate.append(get_priority(item_a))
+    for item in rucksack[0]:
+        priority = get_priority(item)
+        if priority not in duplicate and item in rucksack[1]:
+            duplicate.append(priority)
     total_duplicate.append(sum(duplicate))
+
 print(sum(total_duplicate))
 
 
@@ -39,10 +40,6 @@ print(sum(total_duplicate))
 group_input = []
 group = []
 for line in input:
-    if len(group) == 3:
-        group_input.append(group)
-        group = []
-
     if len(group) < 3:
         group.append(line)
 
@@ -56,11 +53,9 @@ for group in group_input:
 
     # Inner function so we can exit early one matched
     def find_common_item():
-        for item_a in group[0]:
-            for item_b in group[1]:
-                for item_c in group[2]:
-                    if item_a == item_b and item_a == item_c:
-                        return item_a
+        for item in group[0]:
+            if item in group[1] and item in group[2]:
+                return item
 
     common_item = find_common_item()
     total_common.append(get_priority(common_item))
