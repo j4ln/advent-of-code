@@ -10,15 +10,6 @@ def next_value(numbers):
         return numbers[-1]
 
 
-def prev_value(numbers):
-    distances = [b - a for (a, b) in pairwise(numbers)]
-    if sum(distances) != 0:
-        reduction = prev_value(distances)
-        return numbers[0] - reduction
-    else:
-        return numbers[0]
-
-
 with open("d09.input") as file:
     input = file.read().splitlines()
 
@@ -30,5 +21,5 @@ next = [next_value(line) for line in input]
 print(sum(next))  # a: 1762065988
 
 # part 2
-prev = [prev_value(line) for line in input]
+prev = [next_value(list(reversed(line))) for line in input]
 print(sum(prev))  # a: 1066
